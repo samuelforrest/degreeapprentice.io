@@ -103,7 +103,7 @@ export default function HomePage() {
               <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border bg-muted/50 text-muted-foreground transition-colors group-hover:text-primary">
                 <SectorIcon sector={s.name} className="size-4" />
               </span>
-              <span className="flex-1 font-medium group-hover:underline">{s.name}</span>
+              <span className="flex-1 font-medium transition-colors group-hover:text-primary">{s.name}</span>
               <span className="text-sm text-muted-foreground tabular-nums">{s.count}</span>
             </Link>
           ))}

@@ -16,7 +16,7 @@ export function ApprenticeshipCard({ apprenticeship: o }: { apprenticeship: Appr
         <div className="min-w-0 flex-1">
           <h3 className="line-clamp-2 leading-snug font-semibold">
             {/* Stretched link: the whole card is clickable. */}
-            <Link href={href} className="after:absolute after:inset-0 after:rounded-xl group-hover:underline">
+            <Link href={href} className="transition-colors group-hover:text-primary after:absolute after:inset-0 after:rounded-xl">
               {o.title}
             </Link>
           </h3>

@@ -173,17 +173,17 @@ export default async function ApprenticeshipPage({ params }: PageProps<"/apprent
               )}{" "}
               Always confirm dates and eligibility on the official page before applying.
             </p>
-            <a href={o.sourceUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
+            <a href={o.sourceUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary">
               <ExternalLinkIcon className="size-4" /> Official source
             </a>
-            <a href={githubEditUrl(o.file)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
+            <a href={githubEditUrl(o.file)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary">
               <PencilIcon className="size-4" /> Edit this listing
             </a>
             <a
               href={githubNewIssueUrl("report-problem.yml", `Problem with ${o.id}`)}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-primary hover:underline"
+              className="flex items-center gap-1.5 text-primary"
             >
               <FlagIcon className="size-4" /> Report a problem
             </a>
