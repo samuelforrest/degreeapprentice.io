@@ -6,12 +6,18 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { href: "/apprenticeships", label: "Degree apprenticeships" },
+  { href: "/apprenticeships", label: "Roles" },
   { href: "/contribute", label: "Contribute" },
   { href: "/about", label: "About" },
 ];
@@ -19,7 +25,8 @@ const NAV = [
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md">
@@ -47,12 +54,27 @@ export function Header() {
             size="sm"
             className="hidden text-[13px] text-muted-foreground sm:inline-flex"
             nativeButton={false}
-            render={<a href={site.repoUrl} target="_blank" rel="noopener noreferrer" />}
+            render={
+              <a
+                href={site.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
           >
             GitHub
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger render={<Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu" />}>
+            <SheetTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden"
+                  aria-label="Open menu"
+                />
+              }
+            >
               <MenuIcon />
             </SheetTrigger>
             <SheetContent side="right" className="w-72">

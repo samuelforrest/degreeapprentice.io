@@ -1,6 +1,7 @@
 import {
   ArrowRightIcon,
   GitPullRequestIcon,
+  HeartHandshakeIcon,
   LayersIcon,
   SearchIcon,
   ShieldCheckIcon,
@@ -53,9 +54,19 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       <section className="mx-auto max-w-3xl space-y-8 pt-8 text-center md:pt-16">
-        <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
-          The most complete and reliable degree apprenticeship site
-        </h1>
+        <div className="space-y-5">
+          <Link
+            href="/about"
+            className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-[13px] text-muted-foreground transition-colors hover:border-foreground/15 hover:text-foreground"
+          >
+            <HeartHandshakeIcon className="size-3.5 text-primary" aria-hidden />
+            Open source &amp; free
+            <ArrowRightIcon className="size-3.5" aria-hidden />
+          </Link>
+          <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
+            The most complete and reliable degree apprenticeship site
+          </h1>
+        </div>
 
         <div className="space-y-4">
           <form action="/apprenticeships" role="search" className="relative mx-auto max-w-2xl">
