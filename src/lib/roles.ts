@@ -1,4 +1,4 @@
-// Loads content/apprenticeships/*.md at build time. Server-only: every listing
+// Loads content/roles/*.md at build time. Server-only: every listing
 // page is pre-rendered, so there is no database behind the directory.
 import "server-only";
 
@@ -7,9 +7,9 @@ import path from "node:path";
 import matter from "gray-matter";
 
 import type { Level, Sector } from "@/lib/taxonomy";
-import type { Apprenticeship, ApprenticeshipSummary } from "@/lib/types";
+import type { Role, RoleSummary } from "@/lib/types";
 
-const DIR = path.join(process.cwd(), "content", "apprenticeships");
+const DIR = path.join(process.cwd(), "content", "roles");
 
 // YAML turns unquoted 2027-01-31 into a Date; keep dates as YYYY-MM-DD strings.
 const toDate = (v: unknown) =>
@@ -31,9 +31,9 @@ function logoFor(website: string | null) {
   }
 }
 
-let cache: Apprenticeship[] | undefined;
+let cache: Role[] | undefined;
 
-export function getApprenticeships(): Apprenticeship[] {
+export function getRoles(): Role[] {
   if (cache) return cache;
   cache = fs
     .readdirSync(DIR)
@@ -42,7 +42,7 @@ export function getApprenticeships(): Apprenticeship[] {
       const { data, content } = matter(fs.readFileSync(path.join(DIR, file), "utf8"));
       return {
         id: file.replace(/\.md$/, ""),
-        file: `content/apprenticeships/${file}`,
+        file: `content/roles/${file}`,
         title: String(data.title),
         company: String(data.company),
         companyWebsite: data.company_website ?? null,
@@ -67,17 +67,17 @@ export function getApprenticeships(): Apprenticeship[] {
         sourceUrl: String(data.source_url),
         lastVerified: toDate(data.last_verified),
         description: content.trim() || null,
-      } satisfies Apprenticeship;
+      } satisfies Role;
     })
     .sort((a, b) => a.company.localeCompare(b.company) || a.title.localeCompare(b.title));
   return cache;
 }
 
-export const getApprenticeship = (id: string) => getApprenticeships().find((o) => o.id === id) ?? null;
+export const getRole = (id: string) => getRoles().find((o) => o.id === id) ?? null;
 
-export function toSummary(o: Apprenticeship): ApprenticeshipSummary {
-  const summary: Partial<Apprenticeship> = { ...o };
+export function toSummary(o: Role): RoleSummary {
+  const summary: Partial<Role> = { ...o };
   delete summary.description;
   delete summary.file;
-  return summary as ApprenticeshipSummary;
+  return summary as RoleSummary;
 }

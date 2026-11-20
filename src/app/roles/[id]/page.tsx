@@ -4,25 +4,25 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Markdown } from "@/components/markdown";
-import { CompanyLogo } from "@/components/apprenticeships/company-logo";
-import { DeadlineBadge } from "@/components/apprenticeships/deadline-badge";
-import { ApprenticeshipCard } from "@/components/apprenticeships/apprenticeship-card";
+import { CompanyLogo } from "@/components/roles/company-logo";
+import { DeadlineBadge } from "@/components/roles/deadline-badge";
+import { RoleCard } from "@/components/roles/role-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { githubEditUrl, githubNewIssueUrl, site } from "@/config/site";
 import { formatDate, formatSalary } from "@/lib/format";
-import { getApprenticeships, getApprenticeship, toSummary } from "@/lib/apprenticeships";
-import type { Apprenticeship } from "@/lib/types";
+import { getRoles, getRole, toSummary } from "@/lib/roles";
+import type { Role } from "@/lib/types";
 
 // Anything not pre-rendered is a real 404, not a soft one.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getApprenticeships().map((o) => ({ id: o.id }));
+  return getRoles().map((o) => ({ id: o.id }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/roles/[id]">): Promise<Metadata> {
-  const o = getApprenticeship((await params).id);
+  const o = getRole((await params).id);
   if (!o) return {};
   const bits = [
     o.salary !== null ? formatSalary(o.salary, o.salaryMax) : null,
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps<"/roles/[id]">): Pr
 }
 
 // schema.org JobPosting, only emitted when we have enough for it to be valid.
-function jobPostingJsonLd(o: Apprenticeship) {
+function jobPostingJsonLd(o: Role) {
   const datePosted = o.opens ?? o.lastVerified;
   if (!o.description || !datePosted || o.locations.length === 0) return null;
   const json = {
@@ -77,12 +77,12 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
 
 const WORK_PATTERN = { "on-site": "On-site", hybrid: "Hybrid", remote: "Remote" } as const;
 
-export default async function ApprenticeshipPage({ params }: PageProps<"/roles/[id]">) {
-  const o = getApprenticeship((await params).id);
+export default async function RolePage({ params }: PageProps<"/roles/[id]">) {
+  const o = getRole((await params).id);
   if (!o) notFound();
 
   const jsonLd = jobPostingJsonLd(o);
-  const moreFromCompany = getApprenticeships()
+  const moreFromCompany = getRoles()
     .filter((x) => x.company === o.company && x.id !== o.id)
     .slice(0, 3)
     .map(toSummary);
@@ -92,7 +92,7 @@ export default async function ApprenticeshipPage({ params }: PageProps<"/roles/[
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
 
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-        <Link href="/roles" className="hover:text-foreground">Degree apprenticeships</Link>
+        <Link href="/roles" className="hover:text-foreground">Roles</Link>
         {" / "}
         <Link href={`/roles?level=${o.level}`} className="hover:text-foreground">Level {o.level}</Link>
       </nav>
@@ -196,7 +196,7 @@ export default async function ApprenticeshipPage({ params }: PageProps<"/roles/[
           <h2 id="more" className="text-lg font-semibold">More from {o.company}</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
             {moreFromCompany.map((x) => (
-              <ApprenticeshipCard key={x.id} apprenticeship={x} />
+              <RoleCard key={x.id} role={x} />
             ))}
           </div>
         </section>

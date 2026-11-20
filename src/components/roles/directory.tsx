@@ -4,7 +4,7 @@ import { SearchIcon, XIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-import { ApprenticeshipCard } from "@/components/apprenticeships/apprenticeship-card";
+import { RoleCard } from "@/components/roles/role-card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,7 @@ import { githubNewIssueUrl } from "@/config/site";
 import { useToday } from "@/lib/dates";
 import { plural } from "@/lib/format";
 import { LEVELS, SECTORS } from "@/lib/taxonomy";
-import type { ApprenticeshipSummary } from "@/lib/types";
+import type { RoleSummary } from "@/lib/types";
 
 const SORTS = [
   { value: "deadline", label: "Closing soonest" },
@@ -52,10 +52,10 @@ function FilterSelect({
 }
 
 /**
- * Searchable, filterable list of apprenticeships. Filters live in the URL so
+ * Searchable, filterable list of roles. Filters live in the URL so
  * results can be shared and survive the back button.
  */
-export function Directory({ apprenticeships }: { apprenticeships: ApprenticeshipSummary[] }) {
+export function Directory({ roles }: { roles: RoleSummary[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -91,16 +91,16 @@ export function Directory({ apprenticeships }: { apprenticeships: Apprenticeship
 
   const locationOptions = useMemo(() => {
     const counts = new Map<string, number>();
-    for (const o of apprenticeships) for (const l of o.locations) counts.set(l, (counts.get(l) ?? 0) + 1);
+    for (const o of roles) for (const l of o.locations) counts.set(l, (counts.get(l) ?? 0) + 1);
     return [...counts.entries()]
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
       .map(([l, n]) => ({ value: l, label: `${l} (${n})` }));
-  }, [apprenticeships]);
+  }, [roles]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     const terms = q ? q.split(/\s+/) : [];
-    const items = apprenticeships.filter((o) => {
+    const items = roles.filter((o) => {
       if (level !== "all" && String(o.level) !== level) return false;
       if (sector !== "all" && !o.sectors.includes(sector as never)) return false;
       if (location !== "all" && !o.locations.includes(location)) return false;
@@ -110,7 +110,7 @@ export function Directory({ apprenticeships }: { apprenticeships: Apprenticeship
       return terms.every((t) => haystack.includes(t));
     });
 
-    const byCompany = (a: ApprenticeshipSummary, b: ApprenticeshipSummary) =>
+    const byCompany = (a: RoleSummary, b: RoleSummary) =>
       a.company.localeCompare(b.company) || a.title.localeCompare(b.title);
     switch (sort) {
       case "salary":
@@ -119,12 +119,12 @@ export function Directory({ apprenticeships }: { apprenticeships: Apprenticeship
         return items.sort(byCompany);
       default: {
         // Open roles with a known deadline first, soonest first; then everything else.
-        const key = (o: ApprenticeshipSummary) =>
+        const key = (o: RoleSummary) =>
           o.closes && (!today || o.closes >= today) ? o.closes : "9999-12-31";
         return items.sort((a, b) => key(a).localeCompare(key(b)) || byCompany(a, b));
       }
     }
-  }, [apprenticeships, query, level, sector, location, includeClosed, sort, today]);
+  }, [roles, query, level, sector, location, includeClosed, sort, today]);
 
   const filtersActive = query !== "" || level !== "all" || sector !== "all" || location !== "all";
 
@@ -138,7 +138,7 @@ export function Directory({ apprenticeships }: { apprenticeships: Apprenticeship
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by role, company, sector or city"
-            aria-label="Search apprenticeships"
+            aria-label="Search roles"
             className="h-11 pl-9 text-base md:text-sm"
           />
         </div>
@@ -178,7 +178,7 @@ export function Directory({ apprenticeships }: { apprenticeships: Apprenticeship
             </Label>
           </div>
           <p className="text-sm text-muted-foreground" aria-live="polite">
-            {plural(results.length, "apprenticeship", "apprenticeships")}
+            {plural(results.length, "role", "roles")}
           </p>
         </div>
       </div>
@@ -202,15 +202,15 @@ export function Directory({ apprenticeships }: { apprenticeships: Apprenticeship
                 Clear filters
               </Button>
             )}
-            <Button nativeButton={false} render={<a href={githubNewIssueUrl("add-apprenticeship.yml")} target="_blank" rel="noopener noreferrer" />}>
-              Suggest an apprenticeship
+            <Button nativeButton={false} render={<a href={githubNewIssueUrl("add-role.yml")} target="_blank" rel="noopener noreferrer" />}>
+              Suggest a role
             </Button>
           </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {results.map((o) => (
-            <ApprenticeshipCard key={o.id} apprenticeship={o} />
+            <RoleCard key={o.id} role={o} />
           ))}
         </div>
       )}

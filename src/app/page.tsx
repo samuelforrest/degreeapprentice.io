@@ -8,11 +8,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import { ClosingSoon } from "@/components/apprenticeships/closing-soon";
-import { SectorIcon } from "@/components/apprenticeships/sector-icon";
+import { ClosingSoon } from "@/components/roles/closing-soon";
+import { SectorIcon } from "@/components/roles/sector-icon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getApprenticeships, toSummary } from "@/lib/apprenticeships";
+import { getRoles, toSummary } from "@/lib/roles";
 import { SECTORS } from "@/lib/taxonomy";
 
 const PROMISES = [
@@ -34,11 +34,11 @@ const PROMISES = [
 ];
 
 export default function HomePage() {
-  const apprenticeships = getApprenticeships();
+  const roles = getRoles();
   // Send the browser only the next 50 deadlines as of this build; it then picks
   // the ones still open today. Keeps the home page small as listings grow.
   const buildDay = new Date().toISOString().slice(0, 10);
-  const upcoming = apprenticeships
+  const upcoming = roles
     .filter((o) => o.closes && o.closes >= buildDay)
     .sort((a, b) => a.closes!.localeCompare(b.closes!))
     .slice(0, 50)
@@ -46,7 +46,7 @@ export default function HomePage() {
   // Sectors with listings, biggest first.
   const sectors = SECTORS.map((name) => ({
     name,
-    count: apprenticeships.filter((o) => o.sectors.includes(name)).length,
+    count: roles.filter((o) => o.sectors.includes(name)).length,
   }))
     .filter((s) => s.count > 0)
     .sort((a, b) => b.count - a.count);
@@ -78,7 +78,7 @@ export default function HomePage() {
               name="q"
               type="search"
               placeholder="Search roles, companies or cities"
-              aria-label="Search apprenticeships"
+              aria-label="Search roles"
               className="h-16 rounded-2xl bg-card pr-32 pl-14 text-lg shadow-lg shadow-black/20 md:text-lg"
             />
             <Button type="submit" size="lg" className="absolute top-1/2 right-3 h-10 -translate-y-1/2 px-5">
@@ -122,7 +122,7 @@ export default function HomePage() {
             View all <ArrowRightIcon className="size-4" />
           </Link>
         </div>
-        <ClosingSoon apprenticeships={upcoming} />
+        <ClosingSoon roles={upcoming} />
       </section>
 
       <section className="grid gap-6 rounded-xl border bg-card p-6 md:grid-cols-3 md:p-10">
@@ -145,14 +145,14 @@ export default function HomePage() {
         </p>
         <div className="flex flex-wrap justify-center gap-2">
           <Button nativeButton={false} render={<Link href="/about#contribute" />}>
-            Add an apprenticeship
+            Add a role
           </Button>
           <Button
             variant="outline"
             nativeButton={false}
             render={<Link href="/roles" />}
           >
-            Browse apprenticeships
+            Browse roles
           </Button>
         </div>
       </section>

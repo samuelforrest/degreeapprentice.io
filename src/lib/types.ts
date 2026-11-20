@@ -1,6 +1,6 @@
 import type { Level, Sector } from "@/lib/taxonomy";
 
-export type Apprenticeship = {
+export type Role = {
   id: string;
   file: string;
   title: string;
@@ -31,4 +31,4 @@ export type Apprenticeship = {
 
 // The slim shape sent to client components (directory, tracker lookups): drops
 // the Markdown body so page payloads stay small.
-export type ApprenticeshipSummary = Omit<Apprenticeship, "description" | "file">;
+export type RoleSummary = Omit<Role, "description" | "file">;

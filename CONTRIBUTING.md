@@ -4,11 +4,11 @@ Thanks for helping. This is a directory of **UK degree apprenticeships (Level 6 
 
 ## Add a listing
 
-1. Open [`content/apprenticeships/`](content/apprenticeships) and choose **Add file → Create new file**.
+1. Open [`content/roles/`](content/roles) and choose **Add file → Create new file**.
 2. Name the file using the [naming convention](#naming-the-file) below, e.g. `rolls-royce-aerospace-engineering-derby-2027.md`.
 3. Paste the template below (the values are only an example), fill it in **from the employer's official page only**, and choose **Propose changes**.
 
-Don't want to touch files? [Suggest a listing](../../issues/new?template=add-apprenticeship.yml) instead, and a maintainer will add it.
+Don't want to touch files? [Suggest a listing](../../issues/new?template=add-role.yml) instead, and a maintainer will add it.
 
 ```yaml
 ---
@@ -42,7 +42,7 @@ Markdown headings and lists are fine. Don't paste the employer's marketing copy.
 
 ## Naming the file
 
-The filename is the listing's **permanent web address**: `content/apprenticeships/amazon-software-development-engineer-london-2027.md` is published at `/apprenticeships/amazon-software-development-engineer-london-2027`. Every name follows the same pattern:
+The filename is the listing's **permanent web address**: `content/roles/amazon-software-development-engineer-london-2027.md` is published at `/roles/amazon-software-development-engineer-london-2027`. Every name follows the same pattern:
 
 ```
 {company}-{role}-{location}-{start year}.md
@@ -94,7 +94,7 @@ Only `title`, `company`, `level`, `sectors`, `apply_url` and `source_url` are re
 | Field | Notes |
 |---|---|
 | `level` | `6` (bachelor's degree) or `7` (master's). Only degree apprenticeships are listed: no Level 3 to 5 apprenticeships, graduate schemes or sponsored degrees |
-| `sectors` | 1 to 3 from the list in the [schema](content/schema/apprenticeship.schema.json) |
+| `sectors` | 1 to 3 from the list in the [schema](content/schema/role.schema.json) |
 | `company` | Spell it exactly as in the employer's other listings. The filename starts with this name (see [Naming the file](#naming-the-file)) |
 | `salary` | Whole pounds per year, no symbols or commas. For a range, put the lowest in `salary` and the highest in `salary_max`. Weekly pay or bonuses go in `salary_note` |
 | `opens`, `closes`, `starts` | `YYYY-MM-DD` |

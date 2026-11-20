@@ -10,7 +10,7 @@ export default function NotFound() {
         This listing may have been removed after it closed, or the link is wrong.
       </p>
       <Button nativeButton={false} render={<Link href="/roles" />}>
-        Browse apprenticeships
+        Browse roles
       </Button>
     </div>
   );

@@ -1,5 +1,5 @@
 // Fixed vocabularies shared by the content schema and filters.
-// Adding a value here also requires adding it to content/schema/apprenticeship.schema.json.
+// Adding a value here also requires adding it to content/schema/role.schema.json.
 
 export const LEVELS = [
   { id: 6, label: "Level 6", qualification: "Bachelor's degree" },

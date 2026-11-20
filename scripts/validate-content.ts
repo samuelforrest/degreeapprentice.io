@@ -1,4 +1,4 @@
-// Checks every content/apprenticeships/*.md file. Runs in CI on every pull request
+// Checks every content/roles/*.md file. Runs in CI on every pull request
 // and locally with `bun run validate`. Exits non-zero if anything is wrong.
 import fs from "node:fs";
 import path from "node:path";
@@ -7,10 +7,10 @@ import addFormats from "ajv-formats";
 import matter from "gray-matter";
 
 const ROOT = path.join(path.dirname(new URL(import.meta.url).pathname), "..");
-const DIR = path.join(ROOT, "content", "apprenticeships");
+const DIR = path.join(ROOT, "content", "roles");
 const schema = JSON.parse(
   fs.readFileSync(
-    path.join(ROOT, "content", "schema", "apprenticeship.schema.json"),
+    path.join(ROOT, "content", "schema", "role.schema.json"),
     "utf8",
   ),
 );
@@ -37,7 +37,7 @@ const companyNames = new Map<string, Set<string>>();
 
 for (const file of files) {
   if (!file.endsWith(".md")) {
-    fail(file, "only .md files belong in content/apprenticeships");
+    fail(file, "only .md files belong in content/roles");
     continue;
   }
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*\.md$/.test(file)) {
@@ -124,9 +124,9 @@ for (const names of companyNames.values()) {
 
 if (errors.length) {
   console.error(
-    `✗ ${errors.length} problem${errors.length === 1 ? "" : "s"} in content/apprenticeships:\n`,
+    `✗ ${errors.length} problem${errors.length === 1 ? "" : "s"} in content/roles:\n`,
   );
   for (const e of errors) console.error(`  • ${e}`);
   process.exit(1);
 }
-console.log(`✓ ${files.length} apprenticeships are valid`);
+console.log(`✓ ${files.length} roles are valid`);

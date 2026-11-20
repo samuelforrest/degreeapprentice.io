@@ -36,7 +36,7 @@ Fill in a short form on GitHub with the role's name, the employer and a link to 
 
 ### The direct way: edit the file yourself
 
-Every listing is one text file in [\`content/apprenticeships\`](${site.repoUrl}/tree/main/content/apprenticeships). You can change it in your browser:
+Every listing is one text file in [\`content/roles\`](${site.repoUrl}/tree/main/content/roles). You can change it in your browser:
 
 1. On any listing, choose **Edit this listing**. To add a new one, copy an existing file and name it \`company-role-location-startyear.md\`, such as \`acme-software-engineer-leeds-2027.md\`. The filename becomes the page address.
 2. Fill in the details **from the employer's official page only**, and set \`source_url\` to that page.
@@ -67,8 +67,8 @@ export default function AboutPage() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button nativeButton={false} render={<a href={githubNewIssueUrl("add-apprenticeship.yml")} target="_blank" rel="noopener noreferrer" />}>
-            Suggest an apprenticeship
+          <Button nativeButton={false} render={<a href={githubNewIssueUrl("add-role.yml")} target="_blank" rel="noopener noreferrer" />}>
+            Suggest a role
           </Button>
           <Button variant="outline" nativeButton={false} render={<a href={githubNewIssueUrl("report-problem.yml")} target="_blank" rel="noopener noreferrer" />}>
             Report a problem

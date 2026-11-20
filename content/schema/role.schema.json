@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Degree apprenticeship",
-  "description": "Frontmatter of one content/apprenticeships/<id>.md file. The filename is the apprenticeship's permanent URL; the Markdown body is the description.",
+  "description": "Frontmatter of one content/roles/<id>.md file. The filename is the apprenticeship's permanent URL; the Markdown body is the description.",
   "type": "object",
   "additionalProperties": false,
   "required": [

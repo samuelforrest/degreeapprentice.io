@@ -1,12 +1,12 @@
 # GOV.UK importer
 
-Pulls every live Level 6 and 7 apprenticeship from [Find an apprenticeship](https://www.findapprenticeship.service.gov.uk) into `content/apprenticeships/`.
+Pulls every live Level 6 and 7 apprenticeship from [Find an apprenticeship](https://www.findapprenticeship.service.gov.uk) into `content/roles/`.
 
 ```bash
 WORK=$(mktemp -d)
 python3 scripts/import-govuk/fetch.py "$WORK"
 python3 scripts/import-govuk/parse.py "$WORK/detail" "$WORK/vacancies.json"
-python3 scripts/import-govuk/generate.py "$WORK/vacancies.json" content/apprenticeships scripts/import-govuk/postcodes.json
+python3 scripts/import-govuk/generate.py "$WORK/vacancies.json" content/roles scripts/import-govuk/postcodes.json
 bun run validate
 ```
 

@@ -1,5 +1,5 @@
-# Turns parsed GOV.UK Find an apprenticeship vacancies into content/apprenticeships/*.md files.
-# Usage: python3 generate.py <vacancies.json> <content/apprenticeships> <postcodes.json>
+# Turns parsed GOV.UK Find an apprenticeship vacancies into content/roles/*.md files.
+# Usage: python3 generate.py <vacancies.json> <content/roles> <postcodes.json>
 import datetime, glob, sys, os, re, json, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

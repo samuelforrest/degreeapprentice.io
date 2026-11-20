@@ -1,12 +1,12 @@
 "use client";
 
-import { ApprenticeshipCard } from "@/components/apprenticeships/apprenticeship-card";
+import { RoleCard } from "@/components/roles/role-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToday } from "@/lib/dates";
-import type { ApprenticeshipSummary } from "@/lib/types";
+import type { RoleSummary } from "@/lib/types";
 
 /** The next few deadlines. Needs today's date, so it fills in after hydration. */
-export function ClosingSoon({ apprenticeships, limit = 6 }: { apprenticeships: ApprenticeshipSummary[]; limit?: number }) {
+export function ClosingSoon({ roles, limit = 6 }: { roles: RoleSummary[]; limit?: number }) {
   const today = useToday();
 
   if (!today) {
@@ -19,7 +19,7 @@ export function ClosingSoon({ apprenticeships, limit = 6 }: { apprenticeships: A
     );
   }
 
-  const upcoming = apprenticeships
+  const upcoming = roles
     .filter((o) => o.closes && o.closes >= today && (!o.opens || o.opens <= today))
     .sort((a, b) => a.closes!.localeCompare(b.closes!))
     .slice(0, limit);
@@ -31,7 +31,7 @@ export function ClosingSoon({ apprenticeships, limit = 6 }: { apprenticeships: A
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
       {upcoming.map((o) => (
-        <ApprenticeshipCard key={o.id} apprenticeship={o} />
+        <RoleCard key={o.id} role={o} />
       ))}
     </div>
   );

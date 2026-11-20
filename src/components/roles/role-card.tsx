@@ -1,13 +1,13 @@
 import { BanknoteIcon, CalendarIcon, MapPinIcon } from "lucide-react";
 import Link from "next/link";
 
-import { CompanyLogo } from "@/components/apprenticeships/company-logo";
-import { DeadlineBadge } from "@/components/apprenticeships/deadline-badge";
+import { CompanyLogo } from "@/components/roles/company-logo";
+import { DeadlineBadge } from "@/components/roles/deadline-badge";
 import { Badge } from "@/components/ui/badge";
 import { formatDate, formatLocations, formatSalary } from "@/lib/format";
-import type { ApprenticeshipSummary } from "@/lib/types";
+import type { RoleSummary } from "@/lib/types";
 
-export function ApprenticeshipCard({ apprenticeship: o }: { apprenticeship: ApprenticeshipSummary }) {
+export function RoleCard({ role: o }: { role: RoleSummary }) {
   const href = `/roles/${o.id}`;
   return (
     <article className="group relative flex flex-col gap-4 rounded-xl border bg-card p-5 transition-colors hover:border-foreground/15 hover:bg-muted/40">

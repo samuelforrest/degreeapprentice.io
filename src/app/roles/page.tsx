@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { Directory } from "@/components/apprenticeships/directory";
-import { getApprenticeships, toSummary } from "@/lib/apprenticeships";
+import { Directory } from "@/components/roles/directory";
+import { getRoles, toSummary } from "@/lib/roles";
 
 export const metadata: Metadata = {
   title: "All degree apprenticeships",
@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/roles" },
 };
 
-export default function ApprenticeshipsPage() {
-  const summaries = getApprenticeships().map(toSummary);
+export default function RolesPage() {
+  const summaries = getRoles().map(toSummary);
   return (
     <div className="space-y-6">
       <div className="space-y-1">
@@ -22,7 +22,7 @@ export default function ApprenticeshipsPage() {
       </div>
       {/* useSearchParams needs a Suspense boundary so the rest of the page can pre-render. */}
       <Suspense>
-        <Directory apprenticeships={summaries} />
+        <Directory roles={summaries} />
       </Suspense>
     </div>
   );
