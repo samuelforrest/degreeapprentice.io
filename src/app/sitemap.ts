@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
+    { url: url("/ai"), changeFrequency: "monthly", priority: 0.5 },
     { url: url("/cv"), changeFrequency: "monthly", priority: 0.7 },
     { url: url("/tests"), changeFrequency: "monthly", priority: 0.8 },
     ...TESTS.map((t) => ({ url: url(`/tests/${t.slug}`), changeFrequency: "monthly" as const, priority: 0.6 })),

@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 // Every listing page is pre-rendered from content/roles at build time.
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // The /mcp endpoint reads listings and guides from disk at request time.
+  outputFileTracingIncludes: { "/mcp": ["./content/**/*"] },
   turbopack: {
     rules: {
       "*.css": {
