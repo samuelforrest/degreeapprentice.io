@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { Directory } from "@/components/roles/directory";
 import { getRoles, toSummary } from "@/lib/roles";
+import { PageHeader, PageShell } from "@/components/site/page-header";
 
 export const metadata: Metadata = {
   title: "All degree apprenticeships",
@@ -13,17 +14,15 @@ export const metadata: Metadata = {
 export default function RolesPage() {
   const summaries = getRoles().map(toSummary);
   return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-3xl font-semibold tracking-tight">All degree apprenticeships</h1>
-        <p className="text-muted-foreground">
-          Level 6 and 7 apprenticeships across the UK: a full degree, a salary and no tuition fees.
-        </p>
-      </div>
+    <PageShell>
+      <PageHeader
+        title="All degree apprenticeships"
+        description="Level 6 and 7 apprenticeships across the UK: a full degree, a salary and no tuition fees."
+      />
       {/* useSearchParams needs a Suspense boundary so the rest of the page can pre-render. */}
       <Suspense>
         <Directory roles={summaries} />
       </Suspense>
-    </div>
+    </PageShell>
   );
 }

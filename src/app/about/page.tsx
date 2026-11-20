@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import { Markdown } from "@/components/markdown";
+import { ContentCard } from "@/components/site/content-card";
+import { PageHeader, PageShell } from "@/components/site/page-header";
 import { Button } from "@/components/ui/button";
 import { githubNewIssueUrl, site } from "@/config/site";
 
@@ -10,23 +12,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const about = `
-Finding a degree apprenticeship shouldn't mean checking twenty careers sites, creating ten accounts and wading through sponsored listings. **${site.name}** puts every UK degree apprenticeship (Level 6 and 7: a full degree, a salary and no tuition fees) in one searchable place.
-
-## Our promises
-
+const promises = `
 - **Free for students, forever.** Browsing and searching will never sit behind a paywall or a "premium" tier.
 - **No accounts, no cookies.** You don't need to sign up to use anything. We count visits with cookieless, anonymous analytics (Vercel Web Analytics) to see which pages help, and we never sell or share data with employers or advertisers.
 - **Honest listings.** Every listing links to the employer's official page and shows when it was last checked. Paid promotion, if we ever offer it, will always be clearly labelled and never changes the order of search results.
 - **Open source.** The code and the listings are public on [GitHub](${site.repoUrl}) under the MIT licence. You can also download every listing as [JSON](/roles.json) or [CSV](/roles.csv). If we ever let you down, you can take the data and build something better.
-
-## How listings stay accurate
-
-Listings are plain text files that anyone can add to or correct. Every change is checked automatically and reviewed by a maintainer before it goes live, the same way open-source software is built.
-
-## How it pays for itself
-
-Running the site costs little, because the directory is pre-built static pages. To cover those small hosting costs, we'll set up a simple **donation page**. Donating will always be optional: everything stays free, and students' access and data will never be part of the deal.
 `;
 
 const contribute = `
@@ -54,28 +44,51 @@ The full guide, including every field, is in [CONTRIBUTING.md](${site.repoUrl}/b
 
 export default function AboutPage() {
   return (
-    <article className="mx-auto max-w-2xl space-y-4">
-      <h1 className="text-3xl font-semibold tracking-tight">About {site.name}</h1>
-      <Markdown>{about}</Markdown>
+    <PageShell>
+      <PageHeader
+        title={`About ${site.name}`}
+        description="Why the site exists, how listings stay accurate, and how you can help."
+      />
 
-      <section id="contribute" aria-labelledby="contribute-heading" className="scroll-mt-20 space-y-4 pt-6">
-        <div className="space-y-2">
-          <h2 id="contribute-heading" className="text-xl font-semibold tracking-tight">Add or fix a listing</h2>
-          <p className="text-muted-foreground">
-            {site.name} is only as good as its listings. Spotted a missing role or an out-of-date deadline? You can fix
-            it in a couple of minutes, with no coding needed.
+      <div className="mx-auto max-w-3xl space-y-10">
+        <ContentCard title="Why it exists">
+          <Markdown>
+            {`Finding a degree apprenticeship shouldn't mean checking twenty careers sites, creating ten accounts and wading through sponsored listings. **${site.name}** puts every UK degree apprenticeship (Level 6 and 7: a full degree, a salary and no tuition fees) in one searchable place.`}
+          </Markdown>
+        </ContentCard>
+
+        <ContentCard title="Our promises">
+          <Markdown>{promises}</Markdown>
+        </ContentCard>
+
+        <ContentCard title="How listings stay accurate">
+          <Markdown>
+            {`Listings are plain text files that anyone can add to or correct. Every change is checked automatically and reviewed by a maintainer before it goes live, the same way open-source software is built.`}
+          </Markdown>
+        </ContentCard>
+
+        <ContentCard title="How it pays for itself">
+          <Markdown>
+            {`Running the site costs little, because the directory is pre-built static pages. To cover those small hosting costs, we'll set up a simple **donation page**. Donating will always be optional: everything stays free, and students' access and data will never be part of the deal.`}
+          </Markdown>
+        </ContentCard>
+
+        <ContentCard id="contribute" title="Add or fix a listing">
+          <p className="text-[15px] leading-relaxed text-foreground/90">
+            {site.name} is only as good as its listings. Spotted a missing role or an out-of-date deadline? You can fix it
+            in a couple of minutes, with no coding needed.
           </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button nativeButton={false} render={<a href={githubNewIssueUrl("add-role.yml")} target="_blank" rel="noopener noreferrer" />}>
-            Suggest a role
-          </Button>
-          <Button variant="outline" nativeButton={false} render={<a href={githubNewIssueUrl("report-problem.yml")} target="_blank" rel="noopener noreferrer" />}>
-            Report a problem
-          </Button>
-        </div>
-        <Markdown>{contribute}</Markdown>
-      </section>
-    </article>
+          <div className="flex flex-wrap gap-2">
+            <Button nativeButton={false} render={<a href={githubNewIssueUrl("add-role.yml")} target="_blank" rel="noopener noreferrer" />}>
+              Suggest a role
+            </Button>
+            <Button variant="outline" nativeButton={false} render={<a href={githubNewIssueUrl("report-problem.yml")} target="_blank" rel="noopener noreferrer" />}>
+              Report a problem
+            </Button>
+          </div>
+          <Markdown>{contribute}</Markdown>
+        </ContentCard>
+      </div>
+    </PageShell>
   );
 }

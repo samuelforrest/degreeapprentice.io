@@ -6,75 +6,39 @@ import {
   DownloadIcon,
   EyeIcon,
   EyeOffIcon,
-  FileUpIcon,
   LoaderCircleIcon,
   PlusIcon,
-  RotateCcwIcon,
-  SaveIcon,
   Trash2Icon,
 } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { CvPreview } from "@/components/cv/cv-preview";
+import { PageHeader, PageShell } from "@/components/site/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { exampleCv, isCv, makeBlankCv, newEntry, SECTION_PRESETS } from "@/lib/cv/template";
+import { exampleCv, newEntry, SECTION_PRESETS } from "@/lib/cv/template";
 import type { Cv, CvEntry, CvSection } from "@/lib/cv/types";
 import { cn } from "@/lib/utils";
 
-const STORAGE_KEY = "cv:v1";
-
-function readSaved(): string | null {
-  try {
-    return localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
-
-function parseSaved(raw: string | null): Cv | null {
-  if (!raw) return null;
-  try {
-    const value: unknown = JSON.parse(raw);
-    return isCv(value) ? value : null;
-  } catch {
-    return null;
-  }
-}
-
 /**
- * Reads the saved CV once the page is in the browser (there's nothing to read on the server),
- * then hands it to the editor. A first visit starts from the example CV.
+ * Starts from the example CV every time. Nothing is saved or uploaded: a reload resets it,
+ * and downloading the PDF is how people keep their CV.
  */
 export function CvBuilder() {
-  const saved = useSyncExternalStore(
-    () => () => {},
-    readSaved,
-    () => undefined,
-  );
-  if (saved === undefined) {
-    return <div className="h-[70vh] animate-pulse rounded-xl border bg-card" aria-label="Loading the CV builder" />;
-  }
-  return <CvEditor initial={parseSaved(saved) ?? exampleCv} />;
-}
-
-function CvEditor({ initial }: { initial: Cv }) {
-  const [cv, setCv] = useState(initial);
+  const [cv, setCv] = useState(exampleCv);
   const [view, setView] = useState<"edit" | "preview">("edit");
   const [pages, setPages] = useState(1);
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const fileInput = useRef<HTMLInputElement>(null);
 
-  // Autosave to this browser on every change.
+  // Edits are lost on reload, so ask before leaving once the CV has been changed.
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cv));
-    } catch {
-      // Storage unavailable (private browsing or full): the CV still works for this visit.
-    }
+    if (cv === exampleCv) return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
   }, [cv]);
 
   const onPagesChange = useCallback((n: number) => setPages(n), []);
@@ -87,10 +51,6 @@ function CvEditor({ initial }: { initial: Cv }) {
   const removeSection = (section: CvSection) => {
     if (!window.confirm(`Delete the "${section.title}" section? This can't be undone.`)) return;
     setCv((prev) => ({ ...prev, sections: prev.sections.filter((s) => s.id !== section.id) }));
-  };
-
-  const replaceAll = (next: Cv, message: string) => {
-    if (window.confirm(message)) setCv(next);
   };
 
   async function downloadPdf() {
@@ -108,150 +68,113 @@ function CvEditor({ initial }: { initial: Cv }) {
     }
   }
 
-  function saveBackup() {
-    saveFile(new Blob([JSON.stringify(cv, null, 2)], { type: "application/json" }), `${fileName(cv.name)} backup.json`);
-  }
-
-  async function restoreBackup(file: File | undefined) {
-    if (!file) return;
-    try {
-      const value: unknown = JSON.parse(await file.text());
-      if (!isCv(value)) throw new Error("not a CV");
-      replaceAll(value, "Replace your current CV with this backup?");
-    } catch {
-      setError("That file isn't a CV backup from this site.");
-    }
-    if (fileInput.current) fileInput.current.value = "";
-  }
-
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-2xl space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight">CV builder</h1>
-          <p className="text-muted-foreground">
-            Start from our example of a strong school-leaver CV and make it yours. Everything stays in this browser:
-            no account, and nothing is uploaded.
-          </p>
-        </div>
-        <Button size="lg" onClick={downloadPdf} disabled={downloading} className="self-start md:self-auto">
-          {downloading ? <LoaderCircleIcon className="animate-spin" data-icon="inline-start" /> : <DownloadIcon data-icon="inline-start" />}
-          {downloading ? "Creating PDF…" : "Download PDF"}
-        </Button>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-1.5 text-sm">
-        <Button variant="ghost" size="sm" onClick={saveBackup}>
-          <SaveIcon data-icon="inline-start" /> Save backup
-        </Button>
-        <Button variant="ghost" size="sm" onClick={() => fileInput.current?.click()}>
-          <FileUpIcon data-icon="inline-start" /> Restore backup
-        </Button>
-        <input
-          ref={fileInput}
-          type="file"
-          accept="application/json,.json"
-          className="hidden"
-          onChange={(e) => restoreBackup(e.target.files?.[0])}
+    <PageShell>
+      <div className="space-y-4">
+        <PageHeader
+          title="CV builder"
+          description="Start from our example of a strong school-leaver CV and make it yours, then download it as a PDF. Nothing is saved or uploaded, so download before you leave the page."
+          actions={
+            <Button size="lg" onClick={downloadPdf} disabled={downloading}>
+              {downloading ? <LoaderCircleIcon className="animate-spin" data-icon="inline-start" /> : <DownloadIcon data-icon="inline-start" />}
+              {downloading ? "Creating PDF…" : "Download PDF"}
+            </Button>
+          }
         />
-        <Button variant="ghost" size="sm" onClick={() => replaceAll(exampleCv, "Replace your CV with the example? Your current CV will be lost unless you've saved a backup.")}>
-          <RotateCcwIcon data-icon="inline-start" /> Load example
-        </Button>
-        <Button variant="ghost" size="sm" onClick={() => replaceAll(makeBlankCv(), "Clear everything and start from a blank CV?")}>
-          <Trash2Icon data-icon="inline-start" /> Start blank
-        </Button>
-      </div>
 
-      {error && (
-        <p role="alert" className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm">
-          {error}
-        </p>
-      )}
-
-      {/* On small screens, switch between editing and previewing. */}
-      <div className="grid grid-cols-2 gap-1 rounded-lg border bg-card p-1 lg:hidden" role="tablist" aria-label="View">
-        {(["edit", "preview"] as const).map((v) => (
-          <button
-            key={v}
-            type="button"
-            role="tab"
-            aria-selected={view === v}
-            onClick={() => setView(v)}
-            className={cn("rounded-md py-1.5 text-sm text-muted-foreground", view === v && "bg-muted font-medium text-foreground")}
-          >
-            {v === "edit" ? "Edit" : "Preview"}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
-        <div className={cn("space-y-4", view === "preview" && "hidden lg:block")}>
-          <Panel title="Your details" hint="Name, phone, email and town are enough. Leave out your photo, date of birth and full address.">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Field label="Full name" value={cv.name} onChange={(v) => set({ name: v })} className="sm:col-span-2" />
-              <Field
-                label="Headline"
-                value={cv.headline}
-                onChange={(v) => set({ headline: v })}
-                placeholder="e.g. A level student applying for engineering degree apprenticeships"
-                className="sm:col-span-2"
-              />
-              <Field label="Email" type="email" value={cv.email} onChange={(v) => set({ email: v })} />
-              <Field label="Phone" type="tel" value={cv.phone} onChange={(v) => set({ phone: v })} />
-              <Field label="Town or city" value={cv.location} onChange={(v) => set({ location: v })} />
-              <Field label="Links (one per line)" value={cv.links} onChange={(v) => set({ links: v })} multiline placeholder="e.g. LinkedIn or portfolio" />
-            </div>
-          </Panel>
-
-          {cv.sections.map((section, i) => (
-            <SectionEditor
-              key={section.id}
-              section={section}
-              first={i === 0}
-              last={i === cv.sections.length - 1}
-              onChange={(patch) => updateSection(section.id, patch)}
-              onMove={(by) => moveSection(i, by)}
-              onRemove={() => removeSection(section)}
-            />
-          ))}
-
-          <div className="space-y-2 rounded-xl border border-dashed p-4">
-            <p className="text-sm font-medium">Add a section</p>
-            <div className="flex flex-wrap gap-2">
-              {SECTION_PRESETS.map((preset) => (
-                <Button
-                  key={preset.label}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setCv((prev) => ({ ...prev, sections: [...prev.sections, preset.make()] }))}
-                >
-                  <PlusIcon data-icon="inline-start" /> {preset.label}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className={cn("space-y-3 lg:sticky lg:top-16", view === "edit" && "hidden lg:block")}>
-          <div className="flex items-center justify-between gap-3 text-sm">
-            <span className="font-medium">Preview</span>
-            <span className={cn("tabular-nums", pages > 1 ? "text-destructive" : "text-muted-foreground")}>
-              {pages > 1 ? `${pages} pages: aim for one` : "1 page"}
-            </span>
-          </div>
-          <div className="lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-1">
-            <CvPreview cv={cv} onPagesChange={onPagesChange} />
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Tailor your CV for every application, and read{" "}
-            <Link href="/guides/why-this-apprenticeship" className="text-primary">
-              how to explain why you want the role
-            </Link>
-            .
+        {error && (
+          <p role="alert" className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm">
+            {error}
           </p>
+        )}
+      </div>
+
+      <div className="space-y-6">
+        {/* On small screens, switch between editing and previewing. */}
+        <div className="grid grid-cols-2 gap-1 rounded-lg border bg-card p-1 lg:hidden" role="tablist" aria-label="View">
+          {(["edit", "preview"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              role="tab"
+              aria-selected={view === v}
+              onClick={() => setView(v)}
+              className={cn("rounded-md py-1.5 text-sm text-muted-foreground", view === v && "bg-muted font-medium text-foreground")}
+            >
+              {v === "edit" ? "Edit" : "Preview"}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
+          <div className={cn("space-y-4", view === "preview" && "hidden lg:block")}>
+            <Panel title="Your details" hint="Name, phone, email and town are enough. Leave out your photo, date of birth and full address.">
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Field label="Full name" value={cv.name} onChange={(v) => set({ name: v })} className="sm:col-span-2" />
+                <Field
+                  label="Headline"
+                  value={cv.headline}
+                  onChange={(v) => set({ headline: v })}
+                  placeholder="e.g. A level student applying for engineering degree apprenticeships"
+                  className="sm:col-span-2"
+                />
+                <Field label="Email" type="email" value={cv.email} onChange={(v) => set({ email: v })} />
+                <Field label="Phone" type="tel" value={cv.phone} onChange={(v) => set({ phone: v })} />
+                <Field label="Town or city" value={cv.location} onChange={(v) => set({ location: v })} />
+                <Field label="Links (one per line)" value={cv.links} onChange={(v) => set({ links: v })} multiline placeholder="e.g. LinkedIn or portfolio" />
+              </div>
+            </Panel>
+
+            {cv.sections.map((section, i) => (
+              <SectionEditor
+                key={section.id}
+                section={section}
+                first={i === 0}
+                last={i === cv.sections.length - 1}
+                onChange={(patch) => updateSection(section.id, patch)}
+                onMove={(by) => moveSection(i, by)}
+                onRemove={() => removeSection(section)}
+              />
+            ))}
+
+            <div className="space-y-2 rounded-xl border border-dashed p-4">
+              <p className="text-sm font-medium">Add a section</p>
+              <div className="flex flex-wrap gap-2">
+                {SECTION_PRESETS.map((preset) => (
+                  <Button
+                    key={preset.label}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCv((prev) => ({ ...prev, sections: [...prev.sections, preset.make()] }))}
+                  >
+                    <PlusIcon data-icon="inline-start" /> {preset.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className={cn("space-y-3 lg:sticky lg:top-16", view === "edit" && "hidden lg:block")}>
+            <div className="flex items-center justify-between gap-3 text-sm">
+              <span className="font-medium">Preview</span>
+              <span className={cn("tabular-nums", pages > 1 ? "text-destructive" : "text-muted-foreground")}>
+                {pages > 1 ? `${pages} pages: aim for one` : "1 page"}
+              </span>
+            </div>
+            <div className="lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-1">
+              <CvPreview cv={cv} onPagesChange={onPagesChange} />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Tailor your CV for every application, and read{" "}
+              <Link href="/guides/why-this-apprenticeship" className="text-primary">
+                how to explain why you want the role
+              </Link>
+              .
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }
 

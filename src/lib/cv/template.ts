@@ -106,27 +106,6 @@ export const exampleCv: Cv = {
   ],
 };
 
-/** The example's sections, emptied, for people who want to start from scratch. */
-export const makeBlankCv = (): Cv => ({
-  version: 1,
-  name: "",
-  headline: "",
-  email: "",
-  phone: "",
-  location: "",
-  links: "",
-  sections: exampleCv.sections.map((s): CvSection => {
-    switch (s.kind) {
-      case "text":
-        return { ...s, body: "" };
-      case "entries":
-        return { ...s, entries: [newEntry()] };
-      case "list":
-        return { ...s, items: "" };
-    }
-  }),
-});
-
 export function newEntry(): CvEntry {
   return { id: newId(), title: "", organisation: "", location: "", dates: "", bullets: "" };
 }
@@ -141,22 +120,3 @@ export const SECTION_PRESETS: { label: string; make: () => CvSection }[] = [
   { label: "Bullet list", make: () => ({ id: newId(), kind: "list", title: "New section", items: "" }) },
   { label: "Paragraph", make: () => ({ id: newId(), kind: "text", title: "New section", body: "" }) },
 ];
-
-/** Accepts a parsed backup or saved CV only if it has the expected shape. */
-export function isCv(value: unknown): value is Cv {
-  const v = value as Cv;
-  return (
-    !!v &&
-    v.version === 1 &&
-    typeof v.name === "string" &&
-    Array.isArray(v.sections) &&
-    v.sections.every(
-      (s) =>
-        typeof s?.id === "string" &&
-        typeof s.title === "string" &&
-        ((s.kind === "text" && typeof s.body === "string") ||
-          (s.kind === "list" && typeof s.items === "string") ||
-          (s.kind === "entries" && Array.isArray(s.entries))),
-    )
-  );
-}

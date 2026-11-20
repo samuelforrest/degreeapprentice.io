@@ -4,6 +4,7 @@ import { GuideCard } from "@/components/guides/guide-card";
 import { Button } from "@/components/ui/button";
 import { githubNewIssueUrl } from "@/config/site";
 import { GUIDE_TYPES, getGuides, type GuideType } from "@/lib/guides";
+import { PageHeader, PageShell } from "@/components/site/page-header";
 
 export const metadata: Metadata = {
   title: "Guides and articles",
@@ -18,14 +19,11 @@ export default function GuidesPage() {
   const rest = guides.filter((g) => g !== featured);
 
   return (
-    <div className="space-y-12">
-      <div className="max-w-2xl space-y-2">
-        <h1 className="text-3xl font-semibold tracking-tight">Guides</h1>
-        <p className="text-muted-foreground">
-          Practical help with every stage of getting a degree apprenticeship, from choosing a route to your first
-          assessment centre. Written and improved by the community.
-        </p>
-      </div>
+    <PageShell>
+      <PageHeader
+        title="Guides"
+        description="Practical help with every stage of getting a degree apprenticeship, from choosing a route to your first assessment centre. Written and improved by the community."
+      />
 
       {featured && <GuideCard guide={featured} featured />}
 
@@ -34,7 +32,7 @@ export default function GuidesPage() {
         if (!items.length) return null;
         return (
           <section key={type} aria-labelledby={`type-${type}`} className="space-y-4">
-            <div className="space-y-1">
+            <div className="mx-auto max-w-2xl space-y-1 text-center">
               <h2 id={`type-${type}`} className="text-xl font-semibold tracking-tight">
                 {GUIDE_TYPES[type].plural}
               </h2>
@@ -63,6 +61,6 @@ export default function GuidesPage() {
           Suggest a guide
         </Button>
       </section>
-    </div>
+    </PageShell>
   );
 }

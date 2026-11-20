@@ -1,4 +1,4 @@
-// The CV builder's data. It lives only in the visitor's browser (localStorage); nothing is sent to a server.
+// The CV builder's data. It only exists while the page is open; nothing is saved or sent to a server.
 
 export type CvEntry = {
   id: string;
