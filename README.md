@@ -18,9 +18,10 @@ Listings live in git rather than a database on purpose: every change is reviewed
 
 ```bash
 bun install
-cp .env.example .env.local
 bun run dev
 ```
+
+No setup or environment variables are needed. Optionally, set `NEXT_PUBLIC_LOGO_DEV_TOKEN` to a [logo.dev](https://www.logo.dev) publishable key for sharper company logos.
 
 | Command | |
 |---|---|

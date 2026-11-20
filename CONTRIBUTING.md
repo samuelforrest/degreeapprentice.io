@@ -84,7 +84,7 @@ Every pull request runs `bun run validate`, which checks the format, dates, link
 ## Working on the site
 
 ```bash
-bun install && cp .env.example .env.local && bun run dev
+bun install && bun run dev
 ```
 
 Run `bun run check && bun run build` before opening a PR. Keep the student side free and private: anything that adds tracking, ads or data sharing will not be merged.

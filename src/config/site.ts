@@ -6,7 +6,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://degreeapprentice.io",
   repoUrl:
     process.env.NEXT_PUBLIC_REPO_URL ??
-    "https://github.com/samuelforrest/degreeapprentice",
+    "https://github.com/samuelforrest/degreeapprentice.io",
 } as const;
 
 export const githubEditUrl = (path: string) =>
