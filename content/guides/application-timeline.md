@@ -12,7 +12,7 @@ Degree apprenticeships don't share one deadline the way UCAS does. Each employer
 - **Work out which careers interest you.** Look at what roles exist in a sector, not just which companies you've heard of.
 - **Get some experience.** Work experience, insight days, virtual internships, part-time jobs and clubs all give you examples for applications and interviews.
 - **Start a shortlist.** Browse [current roles](/roles) to see which employers recruit apprentices, what they ask for and when they opened last year.
-- **Draft a CV**, even a simple one. Many applications ask for one.
+- **Draft a CV**, even a simple one. Many applications ask for one, and our [CV builder](/cv) gives you a strong example to start from.
 
 ## September to December: the busiest time
 
