@@ -69,7 +69,7 @@ export default function HomePage() {
         </div>
 
         <div className="space-y-4">
-          <form action="/apprenticeships" role="search" className="relative mx-auto max-w-2xl">
+          <form action="/roles" role="search" className="relative mx-auto max-w-2xl">
             <SearchIcon
               className="pointer-events-none absolute top-1/2 left-5 size-5 -translate-y-1/2 text-muted-foreground"
               aria-hidden
@@ -97,7 +97,7 @@ export default function HomePage() {
           {sectors.map((s) => (
             <Link
               key={s.name}
-              href={`/apprenticeships?sector=${encodeURIComponent(s.name)}`}
+              href={`/roles?sector=${encodeURIComponent(s.name)}`}
               className="group flex items-center gap-3 rounded-xl border bg-card px-4 py-3.5 transition-colors hover:border-foreground/15 hover:bg-muted/40"
             >
               <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border bg-muted/50 text-muted-foreground transition-colors group-hover:text-primary">
@@ -116,7 +116,7 @@ export default function HomePage() {
             Closing soon
           </h2>
           <Link
-            href="/apprenticeships"
+            href="/roles"
             className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
           >
             View all <ArrowRightIcon className="size-4" />
@@ -144,13 +144,13 @@ export default function HomePage() {
           That&apos;s how the directory stays complete and accurate.
         </p>
         <div className="flex flex-wrap justify-center gap-2">
-          <Button nativeButton={false} render={<Link href="/contribute" />}>
+          <Button nativeButton={false} render={<Link href="/about#contribute" />}>
             Add an apprenticeship
           </Button>
           <Button
             variant="outline"
             nativeButton={false}
-            render={<Link href="/apprenticeships" />}
+            render={<Link href="/roles" />}
           >
             Browse apprenticeships
           </Button>

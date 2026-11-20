@@ -21,7 +21,7 @@ export function generateStaticParams() {
   return getApprenticeships().map((o) => ({ id: o.id }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/apprenticeships/[id]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/roles/[id]">): Promise<Metadata> {
   const o = getApprenticeship((await params).id);
   if (!o) return {};
   const bits = [
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps<"/apprenticeships/[
   return {
     title: `${o.title} at ${o.company}`,
     description: `Level ${o.level} degree apprenticeship at ${o.company}${bits.length ? `: ${bits.join(" · ")}` : ""}. Free on ${site.name}.`,
-    alternates: { canonical: `/apprenticeships/${o.id}` },
+    alternates: { canonical: `/roles/${o.id}` },
   };
 }
 
@@ -77,7 +77,7 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
 
 const WORK_PATTERN = { "on-site": "On-site", hybrid: "Hybrid", remote: "Remote" } as const;
 
-export default async function ApprenticeshipPage({ params }: PageProps<"/apprenticeships/[id]">) {
+export default async function ApprenticeshipPage({ params }: PageProps<"/roles/[id]">) {
   const o = getApprenticeship((await params).id);
   if (!o) notFound();
 
@@ -92,9 +92,9 @@ export default async function ApprenticeshipPage({ params }: PageProps<"/apprent
       {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />}
 
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-        <Link href="/apprenticeships" className="hover:text-foreground">Degree apprenticeships</Link>
+        <Link href="/roles" className="hover:text-foreground">Degree apprenticeships</Link>
         {" / "}
-        <Link href={`/apprenticeships?level=${o.level}`} className="hover:text-foreground">Level {o.level}</Link>
+        <Link href={`/roles?level=${o.level}`} className="hover:text-foreground">Level {o.level}</Link>
       </nav>
 
       <header className="flex flex-col gap-5 md:flex-row md:items-start">

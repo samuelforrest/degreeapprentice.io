@@ -8,7 +8,7 @@ import { formatDate, formatLocations, formatSalary } from "@/lib/format";
 import type { ApprenticeshipSummary } from "@/lib/types";
 
 export function ApprenticeshipCard({ apprenticeship: o }: { apprenticeship: ApprenticeshipSummary }) {
-  const href = `/apprenticeships/${o.id}`;
+  const href = `/roles/${o.id}`;
   return (
     <article className="group relative flex flex-col gap-4 rounded-xl border bg-card p-5 transition-colors hover:border-foreground/15 hover:bg-muted/40">
       <div className="flex items-start gap-3">

@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    return [
+      { source: "/contribute", destination: "/about#contribute", permanent: true },
+      { source: "/apprenticeships", destination: "/roles", permanent: true },
+      { source: "/apprenticeships/:id", destination: "/roles/:id", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

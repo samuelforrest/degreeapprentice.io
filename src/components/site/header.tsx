@@ -17,8 +17,7 @@ import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { href: "/apprenticeships", label: "Roles" },
-  { href: "/contribute", label: "Contribute" },
+  { href: "/roles", label: "Roles" },
   { href: "/about", label: "About" },
 ];
 

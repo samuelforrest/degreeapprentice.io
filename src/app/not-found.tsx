@@ -9,7 +9,7 @@ export default function NotFound() {
       <p className="text-muted-foreground">
         This listing may have been removed after it closed, or the link is wrong.
       </p>
-      <Button nativeButton={false} render={<Link href="/apprenticeships" />}>
+      <Button nativeButton={false} render={<Link href="/roles" />}>
         Browse apprenticeships
       </Button>
     </div>

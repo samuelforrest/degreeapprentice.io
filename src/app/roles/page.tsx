@@ -7,7 +7,7 @@ import { getApprenticeships, toSummary } from "@/lib/apprenticeships";
 export const metadata: Metadata = {
   title: "All degree apprenticeships",
   description: "Search every UK Level 6 and 7 degree apprenticeship in one place, with salaries and closing dates.",
-  alternates: { canonical: "/apprenticeships" },
+  alternates: { canonical: "/roles" },
 };
 
 export default function ApprenticeshipsPage() {
