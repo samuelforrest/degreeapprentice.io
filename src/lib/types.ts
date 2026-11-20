@@ -29,6 +29,6 @@ export type Role = {
   description: string | null;
 };
 
-// The slim shape sent to client components (directory, tracker lookups): drops
+// The slim shape sent to client components (directory, cards): drops
 // the Markdown body so page payloads stay small.
 export type RoleSummary = Omit<Role, "description" | "file">;

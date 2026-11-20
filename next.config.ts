@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
-// Every listing page is pre-rendered from content/opportunities at build time;
-// accounts and the tracker run in the browser against Supabase.
+// Every listing page is pre-rendered from content/roles at build time.
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   turbopack: {

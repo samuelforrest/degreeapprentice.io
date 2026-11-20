@@ -8,7 +8,7 @@ Order matters: each step should be pulling its weight before the next starts.
 - [ ] Add employers who only recruit on their own sites (PwC, Deloitte, KPMG, BAE, Rolls-Royce…)
 - [ ] Choose the final name and domain (then update `src/config/site.ts`)
 - [ ] Deploy (Vercel or any static-friendly host) and submit the sitemap to Google Search Console
-- [ ] Add privacy-friendly analytics (e.g. Plausible) and update the privacy page
+- [x] Add privacy-friendly analytics (Vercel Web Analytics, cookieless)
 
 ## Next: keep data fresh
 
