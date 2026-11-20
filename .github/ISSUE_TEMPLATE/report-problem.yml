@@ -1,0 +1,18 @@
+name: Report a problem with a listing
+description: Wrong deadline, broken link, closed early, or something else out of date.
+labels: ["listing: fix"]
+body:
+  - type: input
+    id: listing
+    attributes:
+      label: Which listing?
+      description: The page address or the listing's name.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong?
+      placeholder: e.g. The closing date is now 15 January, see https://…
+    validations:
+      required: true

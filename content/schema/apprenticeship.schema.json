@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Degree apprenticeship",
+  "description": "Frontmatter of one content/apprenticeships/<id>.md file. The filename is the apprenticeship's permanent URL; the Markdown body is the description.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "company",
+    "level",
+    "sectors",
+    "apply_url",
+    "source_url"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 140,
+      "description": "Programme name as the employer advertises it."
+    },
+    "company": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "description": "Employer name, written the same way in every file, e.g. \"Rolls-Royce\"."
+    },
+    "company_website": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Employer homepage, used for the logo."
+    },
+    "level": {
+      "type": "integer",
+      "enum": [
+        6,
+        7
+      ],
+      "description": "6 for a bachelor's degree apprenticeship, 7 for a master's."
+    },
+    "sectors": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "Accounting & Audit",
+          "Banking & Finance",
+          "Business & Management",
+          "Construction & Property",
+          "Consulting",
+          "Consumer & Retail",
+          "Creative & Media",
+          "Defence & Aerospace",
+          "Education",
+          "Energy & Utilities",
+          "Engineering",
+          "Healthcare & Life Sciences",
+          "Insurance",
+          "Law",
+          "Public Sector",
+          "Technology",
+          "Telecoms",
+          "Transport & Logistics"
+        ]
+      }
+    },
+    "locations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      },
+      "description": "UK towns or cities. [] if not published."
+    },
+    "work_pattern": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "on-site",
+        "hybrid",
+        "remote",
+        null
+      ]
+    },
+    "salary": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 200000,
+      "description": "Annual salary in GBP (pro-rata for internships). Lowest figure if a range."
+    },
+    "salary_max": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 200000,
+      "description": "Top of the range, if one is published."
+    },
+    "salary_note": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 120,
+      "description": "e.g. \"Plus £2,000 sign-on bonus\" or \"£650 per week\"."
+    },
+    "duration": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 60,
+      "description": "e.g. \"2 years\", \"10 weeks\"."
+    },
+    "eligibility": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 200,
+      "description": "Who can apply, e.g. \"Penultimate-year undergraduates\"."
+    },
+    "qualification": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 120,
+      "description": "Apprenticeships: degree or standard studied."
+    },
+    "training_provider": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 120
+    },
+    "visa_sponsorship": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "opens": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "closes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "description": "null if rolling or not published."
+    },
+    "rolling": {
+      "type": "boolean",
+      "description": "true if the employer may close early once places are filled."
+    },
+    "starts": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "apply_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Official page the details were taken from."
+    },
+    "last_verified": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "description": "When someone last checked these details against source_url."
+    }
+  }
+}

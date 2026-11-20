@@ -1,0 +1,49 @@
+name: Suggest a degree apprenticeship
+description: Tell us about a Level 6 or 7 degree apprenticeship we're missing.
+title: "Add: "
+labels: ["listing: new"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks! A maintainer will turn this into a listing. Please only use details from the employer's own website.
+  - type: input
+    id: company
+    attributes:
+      label: Employer
+      placeholder: e.g. Rolls-Royce
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Programme name
+      placeholder: e.g. Aerospace Engineering Degree Apprenticeship 2027
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Level
+      options:
+        - Level 6 (bachelor's degree)
+        - Level 7 (master's degree)
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Link to the official page
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: closes
+    attributes:
+      label: Closing date (if published)
+      placeholder: YYYY-MM-DD
+  - type: textarea
+    id: details
+    attributes:
+      label: Anything else
+      description: Salary, locations, who can apply. Only what the employer publishes.
