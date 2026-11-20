@@ -115,6 +115,29 @@ Don't delete a listing because it has closed: it shows as "Closed" automatically
 - **Descriptions in your own words**, kept short.
 - One listing per programme per intake. When the same scheme opens for a new year, add a new file (see [Each intake is its own listing](#each-intake-is-its-own-listing)).
 
+## Write a guide
+
+Guides and articles live in [`content/guides/`](content/guides), one Markdown file each. The filename becomes the address: `video-interviews.md` is published at `/guides/video-interviews`.
+
+```markdown
+---
+title: "Video interviews: how to prepare"
+description: "One sentence shown on cards and in search results."
+type: guide          # guide (practical how-to) or blog (opinion or comparison)
+published: 2026-11-20
+updated: 2026-12-01  # optional, when you make a significant change
+---
+
+Write the body in Markdown. Use ## for section headings.
+```
+
+- **Practical and accurate.** Link to official sources for facts like pay, funding or deadlines, and avoid figures that will go out of date quickly.
+- **Written for students:** short sentences, plain English, UK spelling.
+- **Link to the site** where it helps, such as [/roles](/roles) or [/tests](/tests), or other guides.
+- **No promotion** of paid services or specific recruiters.
+
+The build fails with a clear message if the frontmatter is missing a field.
+
 ## Checks
 
 Every pull request runs `bun run validate`, which checks the format, dates, links, company spelling and filename, plus a full build. If a check fails, the error message names the file and field.

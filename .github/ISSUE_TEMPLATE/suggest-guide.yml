@@ -1,0 +1,24 @@
+name: Suggest a guide
+description: An idea for a guide or article, or a correction to an existing one.
+labels: ["guides"]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: What should the guide cover, or which guide needs fixing?
+      placeholder: e.g. How to write a CV with no work experience
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What would be most useful to include? Links to official sources help.
+  - type: dropdown
+    id: write
+    attributes:
+      label: Would you like to write it?
+      options:
+        - "Yes, I'll open a pull request"
+        - "No, just suggesting it"

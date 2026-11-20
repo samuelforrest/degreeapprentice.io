@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -25,6 +26,8 @@ export function Markdown({ children, className }: { children: string; className?
               <a href={href} target="_blank" rel="noopener noreferrer nofollow">
                 {children}
               </a>
+            ) : href?.startsWith("/") ? (
+              <Link href={href}>{children}</Link>
             ) : (
               <a href={href}>{children}</a>
             ),

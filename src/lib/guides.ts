@@ -20,6 +20,8 @@ export type Guide = {
   title: string;
   description: string;
   type: GuideType;
+  /** Shown first on /guides as the place to start. */
+  featured: boolean;
   published: string;
   updated: string | null;
   readingMinutes: number;
@@ -47,6 +49,7 @@ function parse(file: string): Guide {
     title: String(data.title),
     description: String(data.description),
     type: data.type as GuideType,
+    featured: data.featured === true,
     published,
     updated: toDate(data.updated),
     readingMinutes: Math.max(1, Math.round(body.split(/\s+/).length / 220)),
