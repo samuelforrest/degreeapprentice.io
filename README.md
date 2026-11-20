@@ -4,6 +4,8 @@
 
 Every listing is one Markdown file in [`content/roles/`](content/roles). Anyone can add or fix one with a pull request; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
+The full dataset is published on every deploy as `/roles.json` and `/roles.csv` on the live site (spreadsheet-friendly, without descriptions).
+
 ## How it's built
 
 | | |

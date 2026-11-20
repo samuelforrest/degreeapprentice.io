@@ -18,7 +18,7 @@ Finding a degree apprenticeship shouldn't mean checking twenty careers sites, cr
 - **Free for students, forever.** Browsing and searching will never sit behind a paywall or a "premium" tier.
 - **No accounts, no cookies.** You don't need to sign up to use anything. We count visits with cookieless, anonymous analytics (Vercel Web Analytics) to see which pages help, and we never sell or share data with employers or advertisers.
 - **Honest listings.** Every listing links to the employer's official page and shows when it was last checked. Paid promotion, if we ever offer it, will always be clearly labelled and never changes the order of search results.
-- **Open source.** The code and the listings are public on [GitHub](${site.repoUrl}) under the MIT licence. If we ever let you down, you can take the data and build something better.
+- **Open source.** The code and the listings are public on [GitHub](${site.repoUrl}) under the MIT licence. You can also download every listing as [JSON](/roles.json) or [CSV](/roles.csv). If we ever let you down, you can take the data and build something better.
 
 ## How listings stay accurate
 
