@@ -28,6 +28,7 @@ ${getRoles().length} Level 6 and 7 degree apprenticeship listings, updated by th
 - [Game-based assessment practice](${url("/tests/games")})
 - [CV builder](${url("/cv")})
 - [Guides](${url("/guides")})
+- [Salaries and trends](${url("/insights")}): salary, sector, location and closing-date statistics from every listing, with cited national figures
 - [About](${url("/about")})
 
 ## Guides

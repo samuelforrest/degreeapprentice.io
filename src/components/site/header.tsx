@@ -20,6 +20,7 @@ const NAV = [
   { href: "/roles", label: "Roles" },
   { href: "/tests", label: "Tests" },
   { href: "/guides", label: "Guides" },
+  { href: "/insights", label: "Insights" },
   { href: "/cv", label: "CV" },
   { href: "/ai", label: "AI" },
   { href: "/about", label: "About" },
