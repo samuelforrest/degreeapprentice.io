@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Markdown } from "@/components/markdown";
+import { AddToCalendar } from "@/components/roles/add-to-calendar";
 import { CompanyLogo } from "@/components/roles/company-logo";
 import { DeadlineBadge } from "@/components/roles/deadline-badge";
 import { RoleCard } from "@/components/roles/role-card";
@@ -112,7 +113,8 @@ export default async function RolePage({ params }: PageProps<"/roles/[id]">) {
             <DeadlineBadge opens={o.opens} closes={o.closes} rolling={o.rolling} />
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <AddToCalendar id={o.id} opens={o.opens} closes={o.closes} />
           <Button nativeButton={false} render={<a href={o.applyUrl} target="_blank" rel="noopener noreferrer" />}>
             Apply on {o.company}&apos;s site
             <ExternalLinkIcon />
