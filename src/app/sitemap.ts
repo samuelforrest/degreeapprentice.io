@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import { site } from "@/config/site";
 import { getGuides } from "@/lib/guides";
 import { getRoles } from "@/lib/roles";
+import { PLAYABLE } from "@/lib/games";
 import { TESTS } from "@/lib/tests";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -27,6 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: url("/cv"), changeFrequency: "monthly", priority: 0.7 },
     { url: url("/tests"), changeFrequency: "monthly", priority: 0.8 },
     ...TESTS.map((t) => ({ url: url(`/tests/${t.slug}`), changeFrequency: "monthly" as const, priority: 0.6 })),
+    { url: url("/tests/games"), changeFrequency: "monthly", priority: 0.7 },
+    { url: url("/tests/games/full"), changeFrequency: "monthly", priority: 0.5 },
+    ...PLAYABLE.map((g) => ({ url: url(`/tests/games/${g.slug}`), changeFrequency: "monthly" as const, priority: 0.5 })),
     ...["/about"].map((p) => ({ url: url(p), changeFrequency: "monthly" as const, priority: 0.3 })),
   ];
 }

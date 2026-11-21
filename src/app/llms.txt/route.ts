@@ -1,6 +1,7 @@
 import { site } from "@/config/site";
 import { getGuides } from "@/lib/guides";
 import { getRoles } from "@/lib/roles";
+import { PLAYABLE } from "@/lib/games";
 import { TESTS } from "@/lib/tests";
 
 // A plain-text map of the site for AI assistants that browse the web (see https://llmstxt.org).
@@ -24,6 +25,7 @@ ${getRoles().length} Level 6 and 7 degree apprenticeship listings, updated by th
 
 - [Search roles](${url("/roles")})
 - [Practice tests](${url("/tests")})
+- [Game-based assessment practice](${url("/tests/games")})
 - [CV builder](${url("/cv")})
 - [Guides](${url("/guides")})
 - [About](${url("/about")})
@@ -37,6 +39,10 @@ ${getGuides()
 ## Practice tests
 
 ${TESTS.map((t) => `- [${t.title}](${url(`/tests/${t.slug}`)}): ${t.description}`).join("\n")}
+
+## Game-based assessment practice
+
+${PLAYABLE.map((g) => `- [${g.title}](${url(`/tests/games/${g.slug}`)}): ${g.description}`).join("\n")}
 `;
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
 }

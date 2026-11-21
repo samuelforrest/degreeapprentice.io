@@ -1,9 +1,10 @@
-import { BookOpenTextIcon, ChartColumnIcon, ChevronRightIcon, CompassIcon, PuzzleIcon, type LucideIcon } from "lucide-react";
+import { BookOpenTextIcon, ChartColumnIcon, ChevronRightIcon, CompassIcon, Gamepad2Icon, PuzzleIcon, type LucideIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader, PageShell } from "@/components/site/page-header";
 import { BestScore } from "@/components/tests/best-score";
+import { PLAYABLE } from "@/lib/games";
 import { CATEGORIES, shortTitle, TESTS } from "@/lib/tests";
 import type { TestCategory } from "@/lib/tests/types";
 
@@ -80,6 +81,23 @@ export default function TestsPage() {
           );
         })}
       </div>
+
+      <Link
+        href="/tests/games"
+        className="group flex items-center gap-4 rounded-xl border bg-card p-5 transition-colors hover:bg-muted/50 md:p-6"
+      >
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border bg-muted/50 text-primary">
+          <Gamepad2Icon className="size-[18px]" aria-hidden />
+        </span>
+        <div className="min-w-0 flex-1 space-y-1">
+          <h2 className="text-lg font-semibold tracking-tight transition-colors group-hover:text-primary">Game-based assessments</h2>
+          <p className="text-sm text-muted-foreground">
+            {PLAYABLE.length} practice games for assessments like Arctic Shores: risk, memory, attention, emotion recognition and reasoning,
+            one at a time or as a full run.
+          </p>
+        </div>
+        <ChevronRightIcon className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-primary" aria-hidden />
+      </Link>
 
       <p className="mx-auto max-w-2xl text-center text-sm text-muted-foreground">
         All questions are original and written to mirror common assessment formats. They aren&apos;t taken from, or
