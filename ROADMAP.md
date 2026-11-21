@@ -6,7 +6,7 @@ Order matters: each step should be pulling its weight before the next starts.
 
 - [x] Import every live degree apprenticeship from GOV.UK (232 listings)
 - [ ] Add employers who only recruit on their own sites (PwC, Deloitte, KPMG, BAE, Rolls-Royce…)
-- [ ] Choose the final name and domain (then update `src/config/site.ts`)
+- [x] Choose the final name and domain: degreeapprentice.io
 - [ ] Deploy (Vercel or any static-friendly host) and submit the sitemap to Google Search Console
 - [x] Add privacy-friendly analytics (Vercel Web Analytics, cookieless)
 
