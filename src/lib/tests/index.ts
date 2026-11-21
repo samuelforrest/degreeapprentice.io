@@ -9,7 +9,7 @@ export const CATEGORIES: { id: TestCategory; label: string; description: string 
     id: "situational",
     label: "Situational judgement",
     description:
-      "Workplace scenarios where you choose or rate the best responses. Used by most large apprenticeship employers, and often the first test you'll sit.",
+      "Workplace scenarios where you choose or rate the best responses. Most large employers use them, often as the first test.",
   },
   {
     id: "numerical",
@@ -31,6 +31,12 @@ export const CATEGORIES: { id: TestCategory; label: string; description: string 
 export const TESTS = [...situationalTests, ...numericalTests, ...verbalTests, ...logicalTests];
 
 export const getTest = (slug: string) => TESTS.find((t) => t.slug === slug) ?? null;
+
+/** The title without its category prefix, for lists already grouped by category: "Numerical reasoning: business data" → "Business data". */
+export function shortTitle(title: string) {
+  const rest = title.replace(/^[^:]+:\s*/, "");
+  return rest.charAt(0).toUpperCase() + rest.slice(1);
+}
 
 export const categoryLabel = (id: TestCategory) => CATEGORIES.find((c) => c.id === id)!.label;
 
