@@ -138,6 +138,10 @@ Write the body in Markdown. Use ## for section headings.
 
 The build fails with a clear message if the frontmatter is missing a field.
 
+## Licence
+
+By contributing, you agree that your contribution is licensed under the project's [AGPL-3.0 licence](LICENSE).
+
 ## Checks
 
 Every pull request runs `bun run validate`, which checks the format, dates, links, company spelling and filename, plus a full build. If a check fails, the error message names the file and field.

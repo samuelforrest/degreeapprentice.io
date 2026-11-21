@@ -9,7 +9,7 @@ export function GET() {
   return Response.json({
     name: site.name,
     source: site.repoUrl,
-    licence: "MIT",
+    licence: "AGPL-3.0-only",
     generatedAt: new Date().toISOString(),
     count: roles.length,
     roles,

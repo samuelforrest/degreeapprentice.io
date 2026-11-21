@@ -46,4 +46,6 @@ src/app/globals.css      theme (dark only)
 
 ## Licence
 
-[MIT](LICENSE). Code and listings alike.
+Copyright (C) 2026 degreeapprentice.io contributors. Code and listings alike are licensed under the [GNU Affero General Public License v3.0](LICENSE) (AGPL-3.0-only).
+
+In short: you can use, change and share this project, including commercially, but if you run a modified version (including as a public website) you must make your full source code available under the same licence. Earlier versions of this repository were released under the MIT licence.
