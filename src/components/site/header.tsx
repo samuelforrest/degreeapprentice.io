@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import { ShareMenu } from "@/components/site/share-menu";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -53,6 +54,7 @@ export function Header() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-1">
+          <ShareMenu />
           <Button
             variant="ghost"
             size="sm"
