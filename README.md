@@ -1,4 +1,4 @@
-# degreeapprentice.io
+# degreeship.org
 
 **A free, open-source directory of every UK degree apprenticeship** (Level 6 and 7), with salaries, closing dates and entry requirements. No accounts, no paywalls, no ads.
 
@@ -46,6 +46,6 @@ src/app/globals.css      theme (dark only)
 
 ## Licence
 
-Copyright (C) 2026 degreeapprentice.io contributors. Code and listings alike are licensed under the [GNU Affero General Public License v3.0](LICENSE) (AGPL-3.0-only).
+Copyright (C) 2026 degreeship.org contributors. Code and listings alike are licensed under the [GNU Affero General Public License v3.0](LICENSE) (AGPL-3.0-only).
 
 In short: you can use, change and share this project, including commercially, but if you run a modified version (including as a public website) you must make your full source code available under the same licence. Earlier versions of this repository were released under the MIT licence.

@@ -45,7 +45,7 @@ function Bullets({ items }: { items: string[] }) {
 
 export function CvDocument({ cv }: { cv: Cv }) {
   return (
-    <Document title={cv.name ? `${cv.name} CV` : "CV"} author={cv.name} creator="degreeapprentice.io CV builder">
+    <Document title={cv.name ? `${cv.name} CV` : "CV"} author={cv.name} creator="degreeship.org CV builder">
       <Page size="A4" style={styles.page}>
         {cv.name.trim() && <Text style={styles.name}>{cv.name}</Text>}
         {cv.headline.trim() && <Text style={styles.headline}>{cv.headline}</Text>}

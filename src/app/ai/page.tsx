@@ -125,13 +125,13 @@ export default function AiPage() {
 
         <ContentCard id="step-3" title="Claude Code, Cursor, VS Code and other tools">
           <p className="text-sm text-muted-foreground">Claude Code: run this in your terminal.</p>
-          <CopyBlock text={`claude mcp add --transport http degreeapprentice ${MCP_URL}`} />
+          <CopyBlock text={`claude mcp add --transport http degreeship ${MCP_URL}`} />
           <p className="text-sm text-muted-foreground">
             Cursor and most other MCP clients: add this to your MCP settings file.
           </p>
-          <CopyBlock text={JSON.stringify({ mcpServers: { degreeapprentice: { url: MCP_URL } } }, null, 2)} />
+          <CopyBlock text={JSON.stringify({ mcpServers: { degreeship: { url: MCP_URL } } }, null, 2)} />
           <p className="text-sm text-muted-foreground">VS Code: add this to <code className="font-mono text-[13px]">.vscode/mcp.json</code>.</p>
-          <CopyBlock text={JSON.stringify({ servers: { degreeapprentice: { type: "http", url: MCP_URL } } }, null, 2)} />
+          <CopyBlock text={JSON.stringify({ servers: { degreeship: { type: "http", url: MCP_URL } } }, null, 2)} />
         </ContentCard>
 
         <ContentCard id="step-4" title="Any other AI chat, without connecting">
